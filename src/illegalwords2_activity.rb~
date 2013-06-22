@@ -1,0 +1,39 @@
+require 'ruboto/widget'
+require 'ruboto/util/toast'
+require_relative "game"
+
+ruboto_import_widgets :EditText, :TextView, :Button, :LinearLayout
+
+class IllegalwordsActivity
+  def onCreate(bundle)
+    super
+    set_title 'Illegal Words'
+
+     @game = Game.new
+    @game.charge_cards
+    # @game.mix
+    self.content_view =
+        linear_layout :orientation => :vertical do
+          @word = text_view :text => 'What hath Matz wrought?', :id => 42, :width => :match_parent,
+                                 :gravity => :center, :text_size => 48.0
+          @illegalWords = text_view :text => 'otra', :id => 42, :width => :match_parent,
+                                 :gravity => :center, :text_size => 30.0                       
+          button :text => 'M-x butterfly', :width => :match_parent, :id => 43, :on_click_listener => proc { card_show }
+        end
+  rescue
+    puts "Exception creating activity: #{$!}"
+    puts $!.backtrace.join("\n")
+  end
+
+  private
+
+  def card_show
+    # card = game.get_card
+    # word.text = card.shift
+    # card.each[|illegalWord| @illegalWords.append "\n#{illegalWord} "]
+    # toast '!Tiene 2 minutos!'
+  end
+
+end
+
+
